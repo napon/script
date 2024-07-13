@@ -22,10 +22,11 @@ export default function Login({
     });
 
     if (error) {
+      console.log(error);
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/dashboard");
   };
 
   const signUp = async (formData: FormData) => {
@@ -45,7 +46,12 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      if (error.code && error.code === "user_already_exists") {
+        return redirect(
+          "/login?message=This user already exists. Please sign in."
+        );
+      }
+      return redirect("/login?message=Unknown Error Occurred");
     }
 
     return redirect("/login?message=Check email to continue sign in process");
@@ -96,7 +102,7 @@ export default function Login({
         />
         <SubmitButton
           formAction={signIn}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-green-700 rounded-md px-4 py-2 text-primary-foreground mb-2"
           pendingText="Signing In..."
         >
           Sign In

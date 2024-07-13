@@ -61,6 +61,11 @@ Generally this is needed when you want to test out your db schema changes withou
    service_role key: eyJh......
    ```
 
+1. Update your local .env.local file to point to the local supabase instance
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh........
+   ```
 1. At any point, to see this information again, you can run `supabase status`
 1. To stop all local supabase services run `supabase stop`
 1. To seed data to local db (for test data in local db), checkout: https://supabase.com/docs/guides/cli/seeding-your-database

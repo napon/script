@@ -6,9 +6,16 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "tailwindcss", "simple-import-sort"],
-  "extends": ["next/core-web-vitals", "prettier", "plugin:tailwindcss/recommended"],
+  "plugins": ["@typescript-eslint", "prettier", "tailwindcss", "simple-import-sort"],
+  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended", "prettier"],
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ],
     "tailwindcss/no-custom-classname": [
       "warn",
       {

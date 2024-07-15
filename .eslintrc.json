@@ -6,37 +6,13 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "tailwindcss",
-    "simple-import-sort"
-  ],
-  "extends": [
-    "next/core-web-vitals",
-    "prettier",
-    "plugin:tailwindcss/recommended"
-  ],
+  "plugins": ["@typescript-eslint", "tailwindcss", "simple-import-sort"],
+  "extends": ["next/core-web-vitals", "prettier", "plugin:tailwindcss/recommended"],
   "rules": {
     "simple-import-sort/imports": [
       "error",
       {
-        "groups": [
-          [
-            "^react$"
-          ],
-          [
-            "^\\u0000"
-          ],
-          [
-            "^\\w"
-          ],
-          [
-            "^@\\w"
-          ],
-          [
-            "^\\."
-          ]
-        ]
+        "groups": [["^react$"], ["^\\u0000"], ["^\\w"], ["^@\\w"], ["^\\."]]
       }
     ]
   }

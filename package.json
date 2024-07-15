@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "lint": "next lint",
-    "format": "prettier --write .",
+    "lint:fix": "eslint --fix . --ignore-path ./.gitignore",
     "build": "next build",
     "start": "next start"
   },

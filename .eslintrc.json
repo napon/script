@@ -8,7 +8,12 @@
     }
   },
   "plugins": ["@typescript-eslint", "prettier", "tailwindcss", "simple-import-sort"],
-  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": [
       "error",

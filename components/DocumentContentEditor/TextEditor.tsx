@@ -9,8 +9,9 @@ import StarterKit from "@tiptap/starter-kit"
 import { cn } from "@/lib/utils"
 
 const extensions = [StarterKit]
+
 const proseClasses = "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl"
-const sharedClasses = "mx-auto flex min-h-full w-full flex-1 rounded-md border p-4"
+const sharedClasses = "mx-auto min-h-full w-full rounded-md border p-4"
 
 export type TextEditorProps = {
   id: string

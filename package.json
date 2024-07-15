@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "lint": "next lint",
-    "lint:fix": "eslint --fix . --ignore-path ./.gitignore",
+    "lint:fix": "next lint --fix",
     "build": "next build",
     "start": "next start",
     "prepare": "husky"

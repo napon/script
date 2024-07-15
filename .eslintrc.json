@@ -9,6 +9,13 @@
   "plugins": ["@typescript-eslint", "tailwindcss", "simple-import-sort"],
   "extends": ["next/core-web-vitals", "prettier", "plugin:tailwindcss/recommended"],
   "rules": {
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "callees": ["cn"],
+        "cssFiles": []
+      }
+    ],
     "simple-import-sort/imports": [
       "error",
       {

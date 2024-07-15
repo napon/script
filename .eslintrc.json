@@ -15,11 +15,11 @@
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {},
+    "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+    "tailwindcss/classnames-order": [
+      "warn",
       {
-        "usePrettierrc": true
+        "callees": ["cn"]
       }
     ],
     "tailwindcss/no-custom-classname": [

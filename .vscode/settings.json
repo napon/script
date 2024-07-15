@@ -1,12 +1,11 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
   "editor.quickSuggestions": {
     "strings": true
   },
   "eslint.enable": true,
   "eslint.format.enable": true,
-  "eslint.run": "onSave",
-  "tailwindCSS.validate": true
+  "tailwindCSS.validate": true,
+  "tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"]
 }

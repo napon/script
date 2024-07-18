@@ -4,7 +4,7 @@ import { Editor, JSONContent } from "@tiptap/react"
 
 import { TextEditor, TextEditorProps } from "./TextEditor"
 
-import { updateDummyDocument } from "@/utils/demo/dummy-project"
+import { updateDummyDocumentContent } from "@/utils/demo/dummy-project"
 
 type DocumentContentSectionProps = Pick<TextEditorProps, "id" | "content"> & {
   name: string
@@ -32,7 +32,7 @@ export const DocumentContentSection: FunctionComponent<DocumentContentSectionPro
     if (editor !== null) {
       const content = editor.getJSON()
       // call api to update document
-      updateDummyDocument(id, content)
+      updateDummyDocumentContent(id, content)
       setDocumentContent(content)
     }
   }

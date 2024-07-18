@@ -4,13 +4,13 @@ import React, { FunctionComponent, useState } from "react"
 
 import { DocumentContentSection } from "./DocumentContentSection"
 
-import { ProjectDocument } from "@/models/Document"
+import { DocumentContent } from "@/models"
 
 type DocumentContentEditorProps = {
-  document: ProjectDocument
+  documentContent: DocumentContent
 }
 
-export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ document }) => {
+export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ documentContent }) => {
   const [activeSectionId, setActiveSectionId] = useState<string>("")
 
   const onFocusSection = (sectionId: string) => {
@@ -21,14 +21,14 @@ export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps
 
   return (
     <div className="flex size-full flex-1 flex-col gap-6">
-      {document.documentContent.map(documentContent => (
+      {documentContent.sections.map(section => (
         <DocumentContentSection
-          key={documentContent.id}
-          id={documentContent.id}
-          name={documentContent.name}
-          content={documentContent.data}
+          key={section.id}
+          id={section.id}
+          name={section.name}
+          content={section.data}
           activeSectionId={activeSectionId}
-          onFocus={() => onFocusSection(documentContent.id)}
+          onFocus={() => onFocusSection(section.id)}
         />
       ))}
     </div>

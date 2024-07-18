@@ -1,4 +1,2 @@
-export * from "./Citation"
-export * from "./Document"
-export * from "./Image"
-export * from "./Project"
+export * from "./database.types"
+export * from "./document.types"

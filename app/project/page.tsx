@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 import { DocumentContentEditor } from "@/components/DocumentContentEditor"
-import { getDummyProject } from "@/utils/demo/dummy-project"
+import { getDummyDocumentContent } from "@/utils/demo/dummy-project"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function ProjectPage() {
@@ -20,7 +20,7 @@ export default async function ProjectPage() {
       <div className="flex w-1/5 flex-none flex-col">{/* SECTION */}</div>
 
       <div className="flex h-screen w-full flex-1 flex-col py-20">
-        <DocumentContentEditor document={getDummyProject().document} />
+        <DocumentContentEditor documentContent={getDummyDocumentContent()} />
       </div>
 
       <div className="flex w-1/5 flex-none flex-col">{/* SECTION */}</div>

@@ -1,26 +1,25 @@
+import { redirect } from "next/navigation"
+
 import AuthButton from "../components/AuthButton"
 
 import { createClient } from "@/utils/supabase/server"
 
 export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient()
-      return true
-    } catch (e) {
-      return false
-    }
-  }
+  const supabase = createClient()
 
-  const isSupabaseConnected = canInitSupabaseClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    redirect("/dashboard")
+  }
 
   return (
     <div className="flex w-full flex-1 flex-col items-center gap-20">
       <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
         <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-          {isSupabaseConnected && <AuthButton />}
+          <AuthButton />
         </div>
       </nav>
 

@@ -4,6 +4,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
+  "editor.rulers": [120],
   "eslint.enable": true,
   "eslint.format.enable": true,
   "tailwindCSS.validate": true,

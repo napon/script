@@ -8,7 +8,7 @@ export function ProjectList({ projects }: { projects: Project[] | null }) {
     <div>
       {projects?.map(project => (
         <Card key={project.id} className="flex flex-row items-center justify-between">
-          <Link href="/project">
+          <Link href={`/project/${project.id}`}>
             <CardHeader className="items-center">
               <CardTitle>{project.title}</CardTitle>
             </CardHeader>

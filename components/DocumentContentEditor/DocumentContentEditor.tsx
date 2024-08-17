@@ -4,14 +4,23 @@ import React, { FunctionComponent, useState } from "react"
 
 import { DocumentContentSection } from "./DocumentContentSection"
 
-import { DocumentContent } from "@/models"
+import { Document, TableName } from "@/models"
+import { createClient } from "@/utils/supabase/server"
 
 type DocumentContentEditorProps = {
-  documentContent: DocumentContent
+  projectId: number
 }
 
-export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ documentContent }) => {
+export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = async ({ projectId }) => {
+  const supabase = createClient()
   const [activeSectionId, setActiveSectionId] = useState<string>("")
+
+  const { data: document } = await supabase
+    .from(TableName.DOCUMENTS)
+    .select()
+    .eq("project_id", projectId)
+    .returns<Document>()
+    .throwOnError()
 
   const onFocusSection = (sectionId: string) => {
     if (activeSectionId !== sectionId) {
@@ -21,7 +30,7 @@ export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps
 
   return (
     <div className="flex size-full flex-1 flex-col gap-6">
-      {documentContent.sections.map(section => (
+      {document?.content.sections.map(section => (
         <DocumentContentSection
           key={section.id}
           id={section.id}

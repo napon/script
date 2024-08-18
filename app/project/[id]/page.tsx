@@ -24,8 +24,13 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
     return redirect("/login")
   }
 
-  const _project = await apiClient.project.getProjectById(projectId)
-  const document = await apiClient.document.getDocumentByProjectId(projectId)
+  const project = await apiClient.project.getProjectById(projectId)
+
+  if (!project) {
+    return redirect("/dashboard")
+  }
+
+  const document = await apiClient.document.getDocumentByProjectId(project.id)
 
   return (
     <div className="size-full">

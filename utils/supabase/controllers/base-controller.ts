@@ -1,3 +1,5 @@
+import { KeysOfUnion } from "type-fest"
+
 import { SupabaseClient, User } from "@supabase/supabase-js"
 
 import { createClient } from "../server"
@@ -26,14 +28,42 @@ export class BaseController {
     return data.user
   }
 
-  protected async get<T>(columnName: string, value: NonNullable<Json>): Promise<T | null> {
-    const { data, error } = await this.supabase.from(this.tableName).select().eq(columnName, value).single()
+  protected async get<T>(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T | null> {
+    const { data, error } = await this.supabase
+      .from(this.tableName)
+      .select()
+      .eq(columnName as string, value)
+      .single()
 
     if (error) {
       throw new Error("Error fetching data: " + error.message)
     }
 
     return data as T
+  }
+
+  protected async getAll<T>(): Promise<T[]> {
+    const { data, error } = await this.supabase.from(this.tableName).select().returns<T[]>()
+
+    if (error) {
+      throw new Error("Error fetching data: " + error.message)
+    }
+
+    return data as T[]
+  }
+
+  protected async getAllForQuery<T>(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T[]> {
+    const { data, error } = await this.supabase
+      .from(this.tableName)
+      .select()
+      .eq(columnName as string, value)
+      .returns<T[]>()
+
+    if (error) {
+      throw new Error("Error fetching data: " + error.message)
+    }
+
+    return data as T[]
   }
 
   protected async create<T>(data: InsertDto<TableName>): Promise<T> {

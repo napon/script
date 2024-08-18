@@ -4,9 +4,11 @@ import { ProjectList } from "./project-list"
 
 import AuthButton from "@/components/AuthButton"
 import { CreateProject } from "@/components/Dashboard/CreateProject"
+import { createApiClient } from "@/utils/supabase/api"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function ProtectedPage() {
+  const apiClient = createApiClient()
   const supabase = createClient()
 
   const {
@@ -17,23 +19,8 @@ export default async function ProtectedPage() {
     return redirect("/login")
   }
 
-  const { data: projectData, error: projectError } = await supabase
-    .from("projects")
-    .select()
-    .eq("owner_id", user.id)
-    .returns<Project[]>()
-
-  if (projectError) {
-    console.error("Cannot get projects", projectError)
-    return []
-  }
-
-  const { data: journalData, error: journalError } = await supabase.from("journals").select().returns<Journal[]>()
-
-  if (journalError) {
-    console.error("Cannot get journals", journalError)
-    return []
-  }
+  const projectData = await apiClient.project.getAllProjectsForCurrentUser()
+  const journalData = await apiClient.journal.getAllJournals()
 
   return (
     <div className="flex w-full flex-1 flex-col items-center">

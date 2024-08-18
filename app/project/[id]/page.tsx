@@ -1,5 +1,6 @@
+import { FunctionComponent } from "react"
+
 import { redirect } from "next/navigation"
-import { useRouter } from "next/router"
 
 import { LeftBar } from "./left-bar"
 import { RightBar } from "./right-bar"
@@ -7,24 +8,24 @@ import { RightBar } from "./right-bar"
 import AuthButton from "@/components/AuthButton"
 import { DocumentContentEditor } from "@/components/DocumentContentEditor"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
-import { TableName } from "@/models"
+import { createApiClient } from "@/utils/supabase/api"
 import { createClient } from "@/utils/supabase/server"
 
-export default async function ProjectPage() {
+type Props = { params: { id: string } }
+
+const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId } }) => {
+  const apiClient = createApiClient()
   const supabase = createClient()
   const {
-    query: { id },
-  } = useRouter()
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  if (!id) {
-    return redirect("/dashboard")
+  if (!user) {
+    return redirect("/login")
   }
 
-  const { data: project, error } = await supabase.from(TableName.PROJECTS).select().eq("id", id).single<Project>()
-
-  if (!project || error) {
-    return redirect("/dashboard")
-  }
+  const project = await apiClient.project.getProjectById(projectId)
+  const document = await apiClient.document.getDocumentByProjectId(projectId)
 
   return (
     <div className="size-full">
@@ -38,7 +39,7 @@ export default async function ProjectPage() {
           <LeftBar />
         </ResizablePanel>
         <ResizablePanel defaultSize={50} className="border p-1">
-          <DocumentContentEditor projectId={project?.id} />
+          <DocumentContentEditor document={document} />
         </ResizablePanel>
         <ResizablePanel defaultSize={25} className="border p-1">
           <RightBar />
@@ -47,3 +48,5 @@ export default async function ProjectPage() {
     </div>
   )
 }
+
+export default ProjectPage

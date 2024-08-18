@@ -28,9 +28,9 @@ export type Database = MergeDeep<
 
 type TableKeys = keyof Database["public"]["Tables"]
 
-type Row<T extends TableKeys> = Database["public"]["Tables"][T]["Row"]
-type InsertDto<T extends TableKeys> = Database["public"]["Tables"][T]["Insert"]
-type UpdateDto<T extends TableKeys> = Database["public"]["Tables"][T]["Update"]
+export type Row<T extends TableKeys> = Database["public"]["Tables"][T]["Row"]
+export type InsertDto<T extends TableKeys> = Database["public"]["Tables"][T]["Insert"]
+export type UpdateDto<T extends TableKeys> = Database["public"]["Tables"][T]["Update"]
 
 export type Project = Row<TableName.PROJECTS>
 export type ProjectInsertDto = InsertDto<TableName.PROJECTS>

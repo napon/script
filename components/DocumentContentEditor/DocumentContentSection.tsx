@@ -38,7 +38,7 @@ export const DocumentContentSection: FunctionComponent<DocumentContentSectionPro
   }
 
   return (
-    <div className="mb-5 flex h-fit w-full flex-col">
+    <div className="flex h-fit w-full flex-col">
       <h4 className="mb-2">{name}</h4>
       <TextEditor
         id={id}

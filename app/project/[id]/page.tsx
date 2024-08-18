@@ -24,7 +24,7 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
     return redirect("/login")
   }
 
-  const project = await apiClient.project.getProjectById(projectId)
+  const _project = await apiClient.project.getProjectById(projectId)
   const document = await apiClient.document.getDocumentByProjectId(projectId)
 
   return (

@@ -9,7 +9,7 @@ export async function createProjectAction(newTitle: string, targetJournal?: Jour
   const apiClient = createApiClient()
 
   const project = await apiClient.project.createProject(newTitle)
-  const document = await apiClient.document.createDocument(project.id, targetJournal)
+  const _document = await apiClient.document.createDocument(project.id, targetJournal)
 
   redirect(`/project/${project.id}`)
 }

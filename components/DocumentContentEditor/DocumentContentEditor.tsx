@@ -2,21 +2,43 @@
 
 import React, { FunctionComponent, useState } from "react"
 
+import { JSONContent } from "@tiptap/react"
+
 import { DocumentContentSection } from "./DocumentContentSection"
 
 import { Document } from "@/models"
 
 type DocumentContentEditorProps = {
-  document: Document | null
+  document: Document
+  onUpdate: (document: Document) => void
 }
 
-export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ document }) => {
+export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ document, onUpdate }) => {
   const [activeSectionId, setActiveSectionId] = useState<string>("")
 
   const onFocusSection = (sectionId: string) => {
     if (activeSectionId !== sectionId) {
       setActiveSectionId(sectionId)
     }
+  }
+
+  const onUpdateSection = (sectionId: string, content: JSONContent) => {
+    const updatedDocument: Document = {
+      ...document,
+      content: {
+        ...document.content,
+        sections: document.content.sections.map(section => {
+          if (section.id === sectionId) {
+            return {
+              ...section,
+              data: content,
+            }
+          }
+          return section
+        }),
+      },
+    }
+    onUpdate(updatedDocument)
   }
 
   return (
@@ -29,6 +51,7 @@ export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps
           content={section.data}
           activeSectionId={activeSectionId}
           onFocus={() => onFocusSection(section.id)}
+          onUpdate={content => onUpdateSection(section.id, content)}
         />
       ))}
     </div>

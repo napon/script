@@ -8,8 +8,8 @@ import { createApiClient } from "@/utils/supabase/api"
 import { createClient } from "@/utils/supabase/server"
 
 export default async function ProtectedPage() {
-  const apiClient = createApiClient()
   const supabase = createClient()
+  const apiClient = createApiClient(supabase)
 
   const {
     data: { user },

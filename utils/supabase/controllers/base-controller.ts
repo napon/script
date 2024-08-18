@@ -2,8 +2,6 @@ import { KeysOfUnion } from "type-fest"
 
 import { SupabaseClient, User } from "@supabase/supabase-js"
 
-import { createClient } from "../server"
-
 import { Database, InsertDto, TableName, UpdateDto } from "@/models"
 import { Json } from "@/models/generated-database.types"
 
@@ -11,8 +9,8 @@ export class BaseController {
   protected supabase: SupabaseClient<Database>
   protected tableName: TableName
 
-  constructor(tableName: TableName) {
-    this.supabase = createClient()
+  constructor(supabase: SupabaseClient<Database>, tableName: TableName) {
+    this.supabase = supabase
     this.tableName = tableName
   }
 
@@ -67,7 +65,7 @@ export class BaseController {
   }
 
   protected async create<T>(data: InsertDto<TableName>): Promise<T> {
-    const { data: createdData, error } = await this.supabase.from(this.tableName).insert(data).single()
+    const { data: createdData, error } = await this.supabase.from(this.tableName).insert(data).select().single()
 
     if (error) {
       throw new Error("Error creating data: " + error.message)
@@ -77,7 +75,12 @@ export class BaseController {
   }
 
   protected async update<T>(id: number | string, data: UpdateDto<TableName>): Promise<T | null> {
-    const { data: updatedData, error } = await this.supabase.from(this.tableName).update(data).eq("id", id).single()
+    const { data: updatedData, error } = await this.supabase
+      .from(this.tableName)
+      .update(data)
+      .eq("id", id)
+      .select()
+      .single()
 
     if (error) {
       throw new Error("Error updating data: " + error.message)

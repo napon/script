@@ -2,11 +2,11 @@ import { FunctionComponent } from "react"
 
 import { redirect } from "next/navigation"
 
+import { DocumentColumn } from "./document-column"
 import { LeftBar } from "./left-bar"
 import { RightBar } from "./right-bar"
 
 import AuthButton from "@/components/AuthButton"
-import { DocumentContentEditor } from "@/components/DocumentContentEditor"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { createApiClient } from "@/utils/supabase/api"
 import { createClient } from "@/utils/supabase/server"
@@ -14,8 +14,8 @@ import { createClient } from "@/utils/supabase/server"
 type Props = { params: { id: string } }
 
 const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId } }) => {
-  const apiClient = createApiClient()
   const supabase = createClient()
+  const apiClient = createApiClient(supabase)
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -30,8 +30,6 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
     return redirect("/dashboard")
   }
 
-  const document = await apiClient.document.getDocumentByProjectId(project.id)
-
   return (
     <div className="size-full">
       <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
@@ -44,7 +42,7 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
           <LeftBar />
         </ResizablePanel>
         <ResizablePanel defaultSize={50} className="border p-1">
-          <DocumentContentEditor document={document} />
+          <DocumentColumn projectId={project.id} />
         </ResizablePanel>
         <ResizablePanel defaultSize={25} className="border p-1">
           <RightBar />

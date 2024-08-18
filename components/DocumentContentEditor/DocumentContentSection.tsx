@@ -4,12 +4,11 @@ import { Editor, JSONContent } from "@tiptap/react"
 
 import { TextEditor, TextEditorProps } from "./TextEditor"
 
-import { updateDummyDocumentContent } from "@/utils/demo/dummy-project"
-
 type DocumentContentSectionProps = Pick<TextEditorProps, "id" | "content"> & {
   name: string
   activeSectionId: string
   onFocus?: () => void
+  onUpdate: (content: JSONContent) => void
 }
 
 export const DocumentContentSection: FunctionComponent<DocumentContentSectionProps> = ({
@@ -18,6 +17,7 @@ export const DocumentContentSection: FunctionComponent<DocumentContentSectionPro
   content,
   activeSectionId,
   onFocus,
+  onUpdate,
 }) => {
   const [documentContent, setDocumentContent] = useState<JSONContent>(content)
 
@@ -28,11 +28,10 @@ export const DocumentContentSection: FunctionComponent<DocumentContentSectionPro
     }
   }
 
-  const onUpdate = (editor: Editor | null) => {
+  const onUpdateSection = (editor: Editor | null) => {
     if (editor !== null) {
       const content = editor.getJSON()
-      // call api to update document
-      updateDummyDocumentContent(id, content)
+      onUpdate(content)
       setDocumentContent(content)
     }
   }
@@ -44,7 +43,7 @@ export const DocumentContentSection: FunctionComponent<DocumentContentSectionPro
         id={id}
         content={documentContent}
         onClick={onClick}
-        onUpdate={onUpdate}
+        onUpdate={onUpdateSection}
         shouldRenderContentEditor={activeSectionId == id}
       />
     </div>

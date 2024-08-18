@@ -38,8 +38,7 @@ export class DocumentController extends BaseController {
   }
 
   private generateDocumentContentSections(journal?: Journal): DocumentContentSection[] {
-    const sectionNames = !!journal ? journal.sections : this.defaultDocumentContentSectionNames
-    return sectionNames.map(name => {
+    return (journal?.sections ?? this.defaultDocumentContentSectionNames).map(name => {
       return {
         id: nanoid(10),
         name: name,

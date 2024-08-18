@@ -30,7 +30,7 @@ export const CreateProject: FunctionComponent<CreateProjectProps> = ({ journals 
     setLoading(true)
     await createProjectAction(
       title,
-      (journals ?? []).find(journal => journal.id === targetJournalId),
+      journals?.find(journal => journal.id === targetJournalId),
     )
     setOpen(false)
     setLoading(false)

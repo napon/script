@@ -1,10 +1,12 @@
 import { nanoid } from "nanoid"
 
-import { Document, DocumentContentSection, DocumentInsertDto } from "@/models"
+import { SupabaseClient } from "@supabase/supabase-js"
+
+import { Database, DocumentContentSection, DocumentInsertDto, TableName } from "@/models"
 
 import { BaseController } from "./base-controller"
 
-export class DocumentController extends BaseController {
+export class DocumentController extends BaseController<TableName.DOCUMENTS> {
   private defaultDocumentContentSectionNames: string[] = [
     "Abstract",
     "Introduction",
@@ -15,12 +17,16 @@ export class DocumentController extends BaseController {
     "References",
   ]
 
+  constructor(supabase: SupabaseClient<Database>) {
+    super(supabase, TableName.DOCUMENTS)
+  }
+
   public async getDocumentById(id: number | string) {
-    return this.get<Document>("id", id)
+    return this.get("id", id)
   }
 
   public async getDocumentByProjectId(projectId: number | string) {
-    return this.get<Document>("project_id", projectId)
+    return this.get("project_id", projectId)
   }
 
   public async createDocument(projectId: number, journal?: Journal) {
@@ -30,11 +36,11 @@ export class DocumentController extends BaseController {
       owner_id: user.id,
       content: { sections: this.generateDocumentContentSections(journal) },
     }
-    return this.create<Document>(data)
+    return this.create(data)
   }
 
   public async updateDocument(id: number | string, data: DocumentInsertDto) {
-    return this.update<Document>(id, data)
+    return this.update(id, data)
   }
 
   private generateDocumentContentSections(journal?: Journal): DocumentContentSection[] {

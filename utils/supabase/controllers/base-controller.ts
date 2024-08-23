@@ -2,10 +2,10 @@ import { KeysOfUnion } from "type-fest"
 
 import { SupabaseClient, User } from "@supabase/supabase-js"
 
-import { Database, InsertDto, TableName, UpdateDto } from "@/models"
+import { Database, InsertDto, Row, TableName, UpdateDto } from "@/models"
 import { Json } from "@/models/generated-database.types"
 
-export class BaseController {
+export class BaseController<K extends TableName, T = Row<K>> {
   protected supabase: SupabaseClient<Database>
   protected tableName: TableName
 
@@ -26,7 +26,7 @@ export class BaseController {
     return data.user
   }
 
-  protected async get<T>(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T | null> {
+  protected async get(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T | null> {
     const { data, error } = await this.supabase
       .from(this.tableName)
       .select()
@@ -40,7 +40,7 @@ export class BaseController {
     return data as T
   }
 
-  protected async getAll<T>(): Promise<T[]> {
+  protected async getAll(): Promise<T[]> {
     const { data, error } = await this.supabase.from(this.tableName).select().returns<T[]>()
 
     if (error) {
@@ -50,7 +50,7 @@ export class BaseController {
     return data as T[]
   }
 
-  protected async getAllForQuery<T>(
+  protected async getAllForQuery(
     columnName: KeysOfUnion<T>,
     value: NonNullable<Json>,
   ): Promise<T[]> {
@@ -67,7 +67,7 @@ export class BaseController {
     return data as T[]
   }
 
-  protected async create<T>(data: InsertDto<TableName>): Promise<T> {
+  protected async create(data: InsertDto<K>): Promise<T> {
     const { data: createdData, error } = await this.supabase
       .from(this.tableName)
       .insert(data)
@@ -81,7 +81,7 @@ export class BaseController {
     return createdData as T
   }
 
-  protected async update<T>(id: number | string, data: UpdateDto<TableName>): Promise<T | null> {
+  protected async update(id: number | string, data: UpdateDto<K>): Promise<T | null> {
     const { data: updatedData, error } = await this.supabase
       .from(this.tableName)
       .update(data)

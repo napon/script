@@ -1,13 +1,25 @@
 "use client"
 
 import { FunctionComponent, useState } from "react"
-
 import { LoaderIcon, Plus } from "lucide-react"
 
 import { createProjectAction } from "@/app/dashboard/createProjectAction"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 type CreateProjectProps = {
   journals: Journal[] | null

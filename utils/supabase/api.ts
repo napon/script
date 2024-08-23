@@ -1,10 +1,10 @@
 import { SupabaseClient } from "@supabase/supabase-js"
 
+import { Database, TableName } from "@/models"
+
 import { DocumentController } from "./controllers/document-controller"
 import { JournalController } from "./controllers/journal-controller"
 import { ProjectController } from "./controllers/project-controller"
-
-import { Database, TableName } from "@/models"
 
 export const createSupabaseApiClient = (supabase: SupabaseClient<Database>) => {
   return {

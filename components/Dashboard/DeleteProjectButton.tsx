@@ -2,9 +2,9 @@
 
 import { FunctionComponent, useState } from "react"
 
-import { Button } from "../ui/button"
-
 import { deleteProjectAction } from "@/app/dashboard/deleteProjectAction"
+
+import { Button } from "../ui/button"
 
 type DeleteProjectButtonProps = {
   projectId: number

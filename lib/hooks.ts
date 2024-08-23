@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from "react"
-
 import { debounce } from "lodash"
 
 export const useDebounce = <T extends (...args: any) => any>(callback: T, wait: number = 1000) => {

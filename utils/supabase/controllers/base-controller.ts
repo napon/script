@@ -50,7 +50,10 @@ export class BaseController {
     return data as T[]
   }
 
-  protected async getAllForQuery<T>(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T[]> {
+  protected async getAllForQuery<T>(
+    columnName: KeysOfUnion<T>,
+    value: NonNullable<Json>,
+  ): Promise<T[]> {
     const { data, error } = await this.supabase
       .from(this.tableName)
       .select()
@@ -65,7 +68,11 @@ export class BaseController {
   }
 
   protected async create<T>(data: InsertDto<TableName>): Promise<T> {
-    const { data: createdData, error } = await this.supabase.from(this.tableName).insert(data).select().single()
+    const { data: createdData, error } = await this.supabase
+      .from(this.tableName)
+      .insert(data)
+      .select()
+      .single()
 
     if (error) {
       throw new Error("Error creating data: " + error.message)

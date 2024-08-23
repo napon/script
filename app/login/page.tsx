@@ -2,9 +2,9 @@ import { headers } from "next/headers"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-import { SubmitButton } from "./submit-button"
-
 import { createServerClient } from "@/utils/supabase/server"
+
+import { SubmitButton } from "./submit-button"
 
 export default function Login({ searchParams }: { searchParams: { message: string } }) {
   const signIn = async (formData: FormData) => {
@@ -111,7 +111,9 @@ export default function Login({ searchParams }: { searchParams: { message: strin
           Sign Up
         </SubmitButton>
         {searchParams?.message && (
-          <p className="mt-4 bg-foreground/10 p-4 text-center text-foreground">{searchParams.message}</p>
+          <p className="mt-4 bg-foreground/10 p-4 text-center text-foreground">
+            {searchParams.message}
+          </p>
         )}
       </form>
     </div>

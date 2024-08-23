@@ -2,14 +2,14 @@ import { ProjectInsertDto, ProjectUpdateDto } from "@/models"
 
 import { BaseController } from "./base-controller"
 
-export class ProjectController extends BaseController {
+export class ProjectController extends BaseController<Project> {
   public async getProjectById(id: number | string) {
-    return this.get<Project>("id", id)
+    return this.get("id", id)
   }
 
   public async getAllProjectsForCurrentUser() {
     const user = await this.getUser()
-    return this.getAllForQuery<Project>("owner_id", user.id)
+    return this.getAllForQuery("owner_id", user.id)
   }
 
   public async createProject(title: string) {
@@ -18,11 +18,11 @@ export class ProjectController extends BaseController {
       title,
       owner_id: user.id,
     }
-    return this.create<Project>(data)
+    return this.create(data)
   }
 
   public async updateProject(id: number | string, data: ProjectUpdateDto) {
-    return this.update<Project>(id, data)
+    return this.update(id, data)
   }
 
   public async deleteProject(id: number | string) {

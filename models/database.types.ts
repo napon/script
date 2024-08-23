@@ -51,3 +51,5 @@ export type ProfileUpdateDto = UpdateDto<TableName.PROFILES>
 export type Journal = Row<TableName.JOURNALS>
 export type JournalInsertDto = InsertDto<TableName.JOURNALS>
 export type JournalUpdateDto = UpdateDto<TableName.JOURNALS>
+
+export type Tables = Project | Citation | Document | Profile | Journal

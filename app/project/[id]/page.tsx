@@ -1,15 +1,14 @@
 import { FunctionComponent } from "react"
-
 import { redirect } from "next/navigation"
-
-import { DocumentColumn } from "./document-column"
-import { LeftBar } from "./left-bar"
-import { RightBar } from "./right-bar"
 
 import AuthButton from "@/components/AuthButton"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { createSupabaseApiClient } from "@/utils/supabase/api"
 import { createServerClient } from "@/utils/supabase/server"
+
+import { DocumentColumn } from "./document-column"
+import { LeftBar } from "./left-bar"
+import { RightBar } from "./right-bar"
 
 type Props = { params: { id: string } }
 

@@ -1,6 +1,6 @@
-import { BaseController } from "./base-controller"
-
 import { ProjectInsertDto, ProjectUpdateDto } from "@/models"
+
+import { BaseController } from "./base-controller"
 
 export class ProjectController extends BaseController {
   public async getProjectById(id: number | string) {

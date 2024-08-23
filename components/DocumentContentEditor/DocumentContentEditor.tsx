@@ -4,16 +4,19 @@ import React, { FunctionComponent, useState } from "react"
 
 import { JSONContent } from "@tiptap/react"
 
-import { DocumentContentSection } from "./DocumentContentSection"
-
 import { Document } from "@/models"
+
+import { DocumentContentSection } from "./DocumentContentSection"
 
 type DocumentContentEditorProps = {
   document: Document
   onUpdate: (document: Document) => void
 }
 
-export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({ document, onUpdate }) => {
+export const DocumentContentEditor: FunctionComponent<DocumentContentEditorProps> = ({
+  document,
+  onUpdate,
+}) => {
   const [activeSectionId, setActiveSectionId] = useState<string>("")
 
   const onFocusSection = (sectionId: string) => {

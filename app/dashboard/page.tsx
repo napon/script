@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation"
 
-import { ProjectList } from "./project-list"
-
 import AuthButton from "@/components/AuthButton"
 import { CreateProject } from "@/components/Dashboard/CreateProject"
 import { createSupabaseApiClient } from "@/utils/supabase/api"
 import { createServerClient } from "@/utils/supabase/server"
+
+import { ProjectList } from "./project-list"
 
 export default async function ProtectedPage() {
   const supabase = createServerClient()

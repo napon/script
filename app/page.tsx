@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation"
 
-import AuthButton from "../components/AuthButton"
-
 import { createServerClient } from "@/utils/supabase/server"
+
+import AuthButton from "../components/AuthButton"
 
 export default async function Index() {
   const supabase = createServerClient()
@@ -24,7 +24,9 @@ export default async function Index() {
       </nav>
 
       <div className="flex max-w-4xl flex-1 flex-col gap-20 px-3">
-        <p className="mx-auto max-w-xl text-center text-3xl !leading-tight lg:text-4xl">Landing page</p>
+        <p className="mx-auto max-w-xl text-center text-3xl !leading-tight lg:text-4xl">
+          Landing page
+        </p>
       </div>
     </div>
   )

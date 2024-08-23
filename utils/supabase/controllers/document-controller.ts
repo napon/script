@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid"
 
-import { BaseController } from "./base-controller"
-
 import { Document, DocumentContentSection, DocumentInsertDto } from "@/models"
+
+import { BaseController } from "./base-controller"
 
 export class DocumentController extends BaseController {
   private defaultDocumentContentSectionNames: string[] = [

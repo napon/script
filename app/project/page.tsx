@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { createServerClient } from "@/utils/supabase/server"
+import { createServerClient } from "@/utils/supabase"
 
 export default async function Page() {
   const supabase = createServerClient()

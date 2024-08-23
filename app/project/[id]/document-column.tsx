@@ -5,8 +5,7 @@ import { FunctionComponent, useEffect, useState } from "react"
 import { DocumentContentEditor } from "@/components/DocumentContentEditor"
 import { useDebounce } from "@/lib/hooks"
 import { Document } from "@/models"
-import { createSupabaseApiClient } from "@/utils/supabase/api"
-import { createClientComponentClient } from "@/utils/supabase/client"
+import { createClientComponentClient, createSupabaseApiClient } from "@/utils/supabase"
 
 type Props = { projectId: number }
 

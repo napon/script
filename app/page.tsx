@@ -2,10 +2,10 @@ import { redirect } from "next/navigation"
 
 import AuthButton from "../components/AuthButton"
 
-import { createClient } from "@/utils/supabase/server"
+import { createServerClient } from "@/utils/supabase/server"
 
 export default async function Index() {
-  const supabase = createClient()
+  const supabase = createServerClient()
 
   const {
     data: { user },

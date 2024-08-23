@@ -3,23 +3,31 @@
 import { FunctionComponent, useEffect, useState } from "react"
 
 import { DocumentContentEditor } from "@/components/DocumentContentEditor"
+import { useDebounce } from "@/lib/hooks"
 import { Document } from "@/models"
-import { createApiClient } from "@/utils/supabase/api"
-import { createClient } from "@/utils/supabase/client"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createClientComponentClient } from "@/utils/supabase/client"
 
 type Props = { projectId: number }
 
 export const DocumentColumn: FunctionComponent<Props> = ({ projectId }) => {
-  const supabase = createClient()
-  const apiClient = createApiClient(supabase)
+  const supabase = createClientComponentClient()
+  const apiClient = createSupabaseApiClient(supabase)
   const [document, setDocument] = useState<Document | null>(null)
 
   useEffect(() => {
     apiClient.document.getDocumentByProjectId(projectId).then(setDocument)
   }, [])
 
-  const onUpdateDocument = async (data: Document) => {
-    await apiClient.document.updateDocument(data.id, data)
+  const debouncedUpdateDocument = useDebounce(() => {
+    if (!!document) {
+      apiClient.document.updateDocument(document.id, document)
+    }
+  }, 500)
+
+  const onUpdateDocument = (data: Document) => {
+    setDocument(data)
+    debouncedUpdateDocument()
   }
 
   return (

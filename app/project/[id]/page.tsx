@@ -8,14 +8,14 @@ import { RightBar } from "./right-bar"
 
 import AuthButton from "@/components/AuthButton"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
-import { createApiClient } from "@/utils/supabase/api"
-import { createClient } from "@/utils/supabase/server"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createServerClient } from "@/utils/supabase/server"
 
 type Props = { params: { id: string } }
 
 const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId } }) => {
-  const supabase = createClient()
-  const apiClient = createApiClient(supabase)
+  const supabase = createServerClient()
+  const apiClient = createSupabaseApiClient(supabase)
   const {
     data: { user },
   } = await supabase.auth.getUser()

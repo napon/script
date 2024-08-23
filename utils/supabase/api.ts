@@ -6,7 +6,7 @@ import { ProjectController } from "./controllers/project-controller"
 
 import { Database, TableName } from "@/models"
 
-export const createApiClient = (supabase: SupabaseClient<Database>) => {
+export const createSupabaseApiClient = (supabase: SupabaseClient<Database>) => {
   return {
     document: new DocumentController(supabase, TableName.DOCUMENTS),
     journal: new JournalController(supabase, TableName.JOURNALS),

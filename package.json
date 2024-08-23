@@ -24,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "geist": "^1.2.1",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.408.0",
     "nanoid": "^5.0.7",
     "next": "latest",
@@ -38,6 +39,7 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.7",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",

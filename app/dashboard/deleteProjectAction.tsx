@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache"
 
-import { createApiClient } from "@/utils/supabase/api"
-import { createClient } from "@/utils/supabase/server"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createServerClient } from "@/utils/supabase/server"
 
 export async function deleteProjectAction(projectId: number) {
-  const supabase = createClient()
-  const apiClient = createApiClient(supabase)
+  const supabase = createServerClient()
+  const apiClient = createSupabaseApiClient(supabase)
 
   await apiClient.project.deleteProject(projectId)
 

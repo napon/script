@@ -1,8 +1,14 @@
-import { ProjectInsertDto, ProjectUpdateDto } from "@/models"
+import { SupabaseClient } from "@supabase/supabase-js"
+
+import { Database, ProjectInsertDto, ProjectUpdateDto, TableName } from "@/models"
 
 import { BaseController } from "./base-controller"
 
-export class ProjectController extends BaseController<Project> {
+export class ProjectController extends BaseController<TableName.PROJECTS> {
+  constructor(supabase: SupabaseClient<Database>) {
+    super(supabase, TableName.PROJECTS)
+  }
+
   public async getProjectById(id: number | string) {
     return this.get("id", id)
   }

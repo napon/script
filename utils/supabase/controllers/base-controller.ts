@@ -2,11 +2,16 @@ import { KeysOfUnion } from "type-fest"
 
 import { SupabaseClient, User } from "@supabase/supabase-js"
 
-import { Database, InsertDto, TableName, Tables, UpdateDto } from "@/models"
+import { Database, TableInsertDtos, TableName, TableRows, TableUpdateDtos } from "@/models"
 import { Json } from "@/models/generated-database.types"
 
-export class BaseController<T extends Tables> {
-  protected supabase: SupabaseClient<Database>
+export class BaseController<
+  K extends TableName,
+  T = TableRows[K],
+  I = TableInsertDtos[K],
+  U = TableUpdateDtos[K],
+> {
+  protected supabase: SupabaseClient
   protected tableName: TableName
 
   constructor(supabase: SupabaseClient<Database>, tableName: TableName) {
@@ -67,7 +72,7 @@ export class BaseController<T extends Tables> {
     return data as T[]
   }
 
-  protected async create(data: InsertDto<TableName>): Promise<T> {
+  protected async create(data: I): Promise<T> {
     const { data: createdData, error } = await this.supabase
       .from(this.tableName)
       .insert(data)
@@ -81,7 +86,7 @@ export class BaseController<T extends Tables> {
     return createdData as T
   }
 
-  protected async update(id: number | string, data: UpdateDto<TableName>): Promise<T | null> {
+  protected async update(id: number | string, data: U): Promise<T | null> {
     const { data: updatedData, error } = await this.supabase
       .from(this.tableName)
       .update(data)

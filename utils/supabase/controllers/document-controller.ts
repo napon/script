@@ -1,10 +1,12 @@
 import { nanoid } from "nanoid"
 
-import { Document, DocumentContentSection, DocumentInsertDto } from "@/models"
+import { SupabaseClient } from "@supabase/supabase-js"
+
+import { Database, DocumentContentSection, DocumentInsertDto, TableName } from "@/models"
 
 import { BaseController } from "./base-controller"
 
-export class DocumentController extends BaseController<Document> {
+export class DocumentController extends BaseController<TableName.DOCUMENTS> {
   private defaultDocumentContentSectionNames: string[] = [
     "Abstract",
     "Introduction",
@@ -14,6 +16,10 @@ export class DocumentController extends BaseController<Document> {
     "Materials",
     "References",
   ]
+
+  constructor(supabase: SupabaseClient<Database>) {
+    super(supabase, TableName.DOCUMENTS)
+  }
 
   public async getDocumentById(id: number | string) {
     return this.get("id", id)

@@ -4,7 +4,8 @@ import { ProjectList } from "./project-list"
 
 import AuthButton from "@/components/AuthButton"
 import { CreateProject } from "@/components/Dashboard/CreateProject"
-import { createServerClient, createSupabaseApiClient } from "@/utils/supabase"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createServerClient } from "@/utils/supabase/server"
 
 export default async function ProtectedPage() {
   const supabase = createServerClient()

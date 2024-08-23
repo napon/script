@@ -3,7 +3,8 @@
 import { redirect } from "next/navigation"
 
 import { Journal } from "@/models"
-import { createServerClient, createSupabaseApiClient } from "@/utils/supabase"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createServerClient } from "@/utils/supabase/server"
 
 export async function createProjectAction(newTitle: string, targetJournal?: Journal) {
   const supabase = createServerClient()

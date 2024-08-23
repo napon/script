@@ -8,7 +8,8 @@ import { RightBar } from "./right-bar"
 
 import AuthButton from "@/components/AuthButton"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
-import { createServerClient, createSupabaseApiClient } from "@/utils/supabase"
+import { createSupabaseApiClient } from "@/utils/supabase/api"
+import { createServerClient } from "@/utils/supabase/server"
 
 type Props = { params: { id: string } }
 

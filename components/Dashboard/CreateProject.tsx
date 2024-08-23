@@ -15,7 +15,7 @@ type CreateProjectProps = {
 
 export const CreateProject: FunctionComponent<CreateProjectProps> = ({ journals }) => {
   const [title, setTitle] = useState("")
-  const [targetJournal, setTargetJournal] = useState("")
+  const [targetJournalId, setTargetJournalId] = useState<number>()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [titleError, setTitleError] = useState(false)
@@ -28,7 +28,10 @@ export const CreateProject: FunctionComponent<CreateProjectProps> = ({ journals 
     }
 
     setLoading(true)
-    await createProjectAction(title, targetJournal)
+    await createProjectAction(
+      title,
+      journals?.find(journal => journal.id === targetJournalId),
+    )
     setOpen(false)
     setLoading(false)
   }
@@ -65,13 +68,13 @@ export const CreateProject: FunctionComponent<CreateProjectProps> = ({ journals 
               />
               {titleError && <p className="text-sm text-red-500">Title is required</p>}
             </div>
-            <Select onValueChange={setTargetJournal}>
+            <Select onValueChange={(value: string) => setTargetJournalId(Number(value))}>
               <SelectTrigger className="w-52">
                 <SelectValue placeholder="Select a journal" />
               </SelectTrigger>
               <SelectContent>
                 {journals?.map(journal => (
-                  <SelectItem key={journal.id} value={journal.name}>
+                  <SelectItem key={journal.id} value={journal.id.toString()}>
                     {journal.name}
                   </SelectItem>
                 ))}

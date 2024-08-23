@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-import { createClient } from "@/utils/supabase/server"
+import { createServerClient } from "@/utils/supabase/server"
 
 export default async function AuthButton() {
-  const supabase = createClient()
+  const supabase = createServerClient()
 
   const {
     data: { user },
@@ -13,7 +13,7 @@ export default async function AuthButton() {
   const signOut = async () => {
     "use server"
 
-    const supabase = createClient()
+    const supabase = createServerClient()
     await supabase.auth.signOut()
     return redirect("/")
   }

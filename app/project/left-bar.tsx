@@ -39,7 +39,7 @@ export async function LeftBar() {
         <div>Keywords</div>
       </ResizablePanel>
       <ResizablePanel defaultSize={30} className="border p-1">
-        <CitationDisplay userId={user?.id} integratedZotero={false} citations={[]}></CitationDisplay>
+        <CitationDisplay userId={user?.id} integratedZotero={false} citations={citations}></CitationDisplay>
       </ResizablePanel>
       <ResizablePanel defaultSize={25} className="border p-1">
         <div>Notes</div>

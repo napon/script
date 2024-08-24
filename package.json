@@ -25,6 +25,7 @@
     "geist": "^1.2.1",
     "lucide-react": "^0.408.0",
     "next": "latest",
+    "oauth-1.0a": "^2.2.6",
     "postcss": "8.4.33",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -51,6 +52,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.5"
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "supabase": "^1.190.0"
   }
 }

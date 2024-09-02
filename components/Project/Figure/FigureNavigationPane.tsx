@@ -3,6 +3,7 @@
 import React, { FunctionComponent, useMemo } from "react"
 import { Info } from "lucide-react"
 
+import { revalidateProjectPage } from "@/app/project/[id]/actions"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { FigureGroupInsertDto, FigureGroupUpdateDto } from "@/models/database.types"
@@ -10,7 +11,6 @@ import { FigureGroupWithChildren } from "@/models/figure.types"
 import { createSupabaseApiClient } from "@/utils/supabase/api"
 import { createClientComponentClient } from "@/utils/supabase/client"
 
-import { revalidateProjectPage } from "../../../app/project/[id]/actions"
 import { CreateFigureGroupButton } from "./Buttons"
 import { CreateOrUpdateFigureGroupDialog } from "./CreateOrUpdateFigureGroupDialog"
 import { FigureGroupItem } from "./FigureGroup"
@@ -48,8 +48,8 @@ export const FigureNavigationPane: FunctionComponent<FigureNavigationProps> = ({
   }
 
   return (
-    <div className="size-full rounded-lg border shadow-sm">
-      <div className="flex items-center justify-between border-b p-2">
+    <div className="size-full">
+      <div className="flex items-center justify-between border-b pb-1">
         <CreateOrUpdateFigureGroupDialog
           projectId={projectId}
           onSave={async (data: FigureGroupInsertDto) => {
@@ -61,7 +61,7 @@ export const FigureNavigationPane: FunctionComponent<FigureNavigationProps> = ({
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Info className="size-4" />
+              <Info className="mr-2 size-4" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Figure numbering will be handled automatically at export time.</p>

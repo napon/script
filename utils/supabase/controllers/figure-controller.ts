@@ -25,6 +25,6 @@ export class FigureController extends BaseController<TableName.FIGURES> {
   }
 
   public async deleteFigure(id: number) {
-    const { url } = await this.delete(id)
+    await this.delete(id)
   }
 }

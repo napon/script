@@ -41,6 +41,6 @@ export class FigureGroupController extends BaseController<TableName.FIGURE_GROUP
   }
 
   public async deleteFigureGroup(id: number) {
-    const data = await this.delete(id)
+    await this.delete(id)
   }
 }

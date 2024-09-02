@@ -9,6 +9,7 @@ import {
   JournalController,
   ProjectController,
 } from "./controllers"
+import { StorageController } from "./controllers/storage-controller"
 
 export const createSupabaseApiClient = (supabase: SupabaseClient<Database>) => {
   return {
@@ -17,5 +18,6 @@ export const createSupabaseApiClient = (supabase: SupabaseClient<Database>) => {
     project: new ProjectController(supabase),
     figureGroup: new FigureGroupController(supabase),
     figure: new FigureController(supabase),
+    storage: new StorageController(supabase),
   }
 }

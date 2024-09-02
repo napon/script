@@ -25,8 +25,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { Figure } from "@/models"
 
+import { revalidateProjectPage } from "../../../app/project/[id]/actions"
+
 export interface CreateOrUpdateFigureDialogProps {
   ButtonUI: ReactNode
+  projectId: number
   figureGroupId: number
   figure?: Figure
   onCaptionUpdate?: (id: number, data: Figure) => any
@@ -34,6 +37,7 @@ export interface CreateOrUpdateFigureDialogProps {
 
 export const CreateOrUpdateFigureDialog: FunctionComponent<CreateOrUpdateFigureDialogProps> = ({
   figure,
+  projectId,
   figureGroupId,
   onCaptionUpdate,
   ButtonUI,
@@ -83,7 +87,6 @@ export const CreateOrUpdateFigureDialog: FunctionComponent<CreateOrUpdateFigureD
   })
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ caption, image, figureGroupId }) => {
-    console.log(form.formState)
     if (!form.formState.dirtyFields.caption) return setIsDialogOpen(false)
     if (figure && onCaptionUpdate) {
       // update existing
@@ -99,11 +102,12 @@ export const CreateOrUpdateFigureDialog: FunctionComponent<CreateOrUpdateFigureD
       formData.append("image", image)
       formData.append("figureGroupId", figureGroupId)
       formData.append("caption", caption)
-      return fetch("/api/upload-figures", {
+      await fetch("/api/upload-figures", {
         method: "POST",
         body: formData,
-      }).then((response: Response) => {
+      }).then(async (response: Response) => {
         if (response.ok) {
+          await revalidateProjectPage(projectId)
           setIsDialogOpen(false)
         } else {
           form.setError("root", { message: "Unknown error. Please try again later." })

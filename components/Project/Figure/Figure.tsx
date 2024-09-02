@@ -19,7 +19,7 @@ export const FigureItem: React.FunctionComponent<FigureItemProp> = ({ figure }) 
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <Image className="mr-2 size-4 text-gray-500" />
         <span
-          className={`cursor-pointer text-sm ${showFullName ? "" : "truncate"}`}
+          className={`cursor-pointer text-sm ${showFullName ? "" : "truncate"} ${currentFigureUrl === figure.url ? "font-bold text-blue-800" : ""}`}
           style={{ maxWidth: "150px" }}
           onClick={() => {
             setShowFullName(!showFullName)

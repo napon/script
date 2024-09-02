@@ -28,6 +28,7 @@ export class FigureGroupController extends BaseController<TableName.FIGURE_GROUP
       )
       .eq("project_id", projectId)
       .order("created_at", { ascending: true })
+      .order("created_at", { foreignTable: "figures", ascending: true })
     return result.data
   }
 
@@ -40,6 +41,6 @@ export class FigureGroupController extends BaseController<TableName.FIGURE_GROUP
   }
 
   public async deleteFigureGroup(id: number) {
-    return this.delete(id)
+    const data = await this.delete(id)
   }
 }

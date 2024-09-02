@@ -135,6 +135,7 @@ export const CreateOrUpdateFigureGroupDialog: FunctionComponent<
                     <div className="mt-4 flex justify-end space-x-2">
                       <CreateOrUpdateFigureDialog
                         ButtonUI={FigureEditButton}
+                        projectId={projectId}
                         figure={f}
                         figureGroupId={f.figure_group_id}
                         onCaptionUpdate={async (id: number, data: Figure) => {
@@ -148,6 +149,7 @@ export const CreateOrUpdateFigureGroupDialog: FunctionComponent<
                         confirmMessageDescription={"This will delete the Figure from the group."}
                         onConfirm={async () => {
                           await apiClient.figure.deleteFigure(f.id)
+                          await apiClient.storage.deleteFigureImagesFromStorage([f.url])
                           await revalidateProjectPage(projectId)
                         }}
                         onDismiss={() => {}}
@@ -158,6 +160,7 @@ export const CreateOrUpdateFigureGroupDialog: FunctionComponent<
               ))}
             </div>
             <CreateOrUpdateFigureDialog
+              projectId={projectId}
               figureGroupId={figureGroup.id}
               ButtonUI={FigureCreateButton}
             />
@@ -174,6 +177,9 @@ export const CreateOrUpdateFigureGroupDialog: FunctionComponent<
             confirmMessageDescription={"This will also delete all figures inside the group."}
             onConfirm={async () => {
               await apiClient.figureGroup.deleteFigureGroup(figureGroup.id)
+              await apiClient.storage.deleteFigureImagesFromStorage(
+                figureGroup.figures.map(f => f.url),
+              )
               await revalidateProjectPage(projectId)
             }}
             onDismiss={() => {}}

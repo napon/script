@@ -44,7 +44,7 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
           <DocumentColumn projectId={project.id} />
         </ResizablePanel>
         <ResizablePanel defaultSize={25} className="border p-1">
-          <RightBar />
+          <RightBar projectId={project.id} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

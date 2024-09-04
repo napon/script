@@ -5,27 +5,35 @@ import { fetchZoteroCitationsAction } from "@/app/zotero/fetchZoteroCitationsAct
 import { Button } from "../ui/button"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable"
 import IntegrateZotero from "./IntegrateZotero"
+import { useCitationStore } from "@/store/useCitationStore"
 import { useEffect } from "react"
 
 export default function CitationDisplay({
   projectId,
   integratedZotero,
-  citations,
+  initialCitations,
 }: {
   projectId: number
   integratedZotero: boolean
-  citations: CitationWithAuthor[]
+  initialCitations: CitationWithAuthor[]
 }) {
-  const handleClick = () => {
+  const { citations, setCitations } = useCitationStore()
+
+  useEffect(() => {
+    setCitations(initialCitations)
+  }, [])
+
+  const handleClick = async () => {
     if (!window.location.href.includes("rsc")) {
-      fetchZoteroCitationsAction(projectId)
+      const updatedCitations = await fetchZoteroCitationsAction(projectId)
+      setCitations(updatedCitations)
     }
   }
 
   return (
     <div className="m-0 p-0">
       {integratedZotero ? (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col overflow-y-scroll">
           <div className="bg-gray-200">
             <ResizablePanelGroup direction="horizontal">
               <ResizablePanel defaultSize={50} className="text-center">
@@ -36,7 +44,7 @@ export default function CitationDisplay({
               </ResizablePanel>
             </ResizablePanelGroup>
           </div>
-          <div className="flex flex-1 flex-col">
+          <div className="mb-2 flex flex-1 flex-col">
             <ul className="menu m-0 flex rounded-box p-0">
               {citations?.map(citation => {
                 const authorsObject: CitationAuthor[] = citation.authors

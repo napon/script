@@ -34,7 +34,7 @@ export async function LeftBar({ projectId }: { projectId: number }) {
         <CitationDisplay
           projectId={projectId}
           integratedZotero={integratedZotero}
-          citations={citations}
+          initialCitations={citations}
         ></CitationDisplay>
       </ResizablePanel>
       <ResizablePanel defaultSize={25} className="border p-1">

@@ -15,6 +15,7 @@ type Props = { params: { id: string } }
 const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId } }) => {
   const supabase = createServerClient()
   const apiClient = createSupabaseApiClient(supabase)
+
   const {
     data: { user },
   } = await supabase.auth.getUser()

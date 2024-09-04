@@ -7,8 +7,7 @@ export async function fetchZoteroCitationsAction(projectId: number) {
   const supabase = createServerClient()
   const apiClient = createSupabaseApiClient(supabase)
 
-  console.log("In server action")
   await apiClient.citation.updateCitations(projectId)
 
-  return { success: true }
+  return await apiClient.citation.getAllCitationsForCurrentUser()
 }

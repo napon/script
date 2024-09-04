@@ -30,23 +30,27 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
   }
 
   return (
-    <div className="size-full">
-      <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
-        <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
+    <div className="flex h-screen w-screen flex-col">
+      <nav className="sticky top-0 z-50 flex h-16 w-full justify-center border-b bg-white">
+        <div className="w-full max-w-4xl items-center justify-between p-3 text-sm">
           <AuthButton />
         </div>
       </nav>
-      <ResizablePanelGroup direction="horizontal" className="border">
-        <ResizablePanel defaultSize={25} className="border p-1">
-          <LeftBar />
-        </ResizablePanel>
-        <ResizablePanel defaultSize={50} className="border p-1">
-          <DocumentColumn projectId={project.id} />
-        </ResizablePanel>
-        <ResizablePanel defaultSize={25} className="border p-1">
-          <RightBar />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <div className="h-full flex-1 overflow-y-scroll">
+        <ResizablePanelGroup direction="horizontal" className="border">
+          <ResizablePanel defaultSize={25} className="border p-1">
+            <LeftBar projectId={project.id} />
+          </ResizablePanel>
+          <ResizablePanel defaultSize={50} className="flex flex-col border p-1">
+            <div className="flex-1 overflow-y-scroll">
+              <DocumentColumn projectId={project.id} />
+            </div>
+          </ResizablePanel>
+          <ResizablePanel defaultSize={25} className="border p-1">
+            <RightBar />
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
     </div>
   )
 }

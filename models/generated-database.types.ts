@@ -3,27 +3,89 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      citation_authors: {
+        Row: {
+          citation_id: number
+          created_at: string
+          creator_type: string
+          first_name: string
+          id: number
+          last_name: string
+        }
+        Insert: {
+          citation_id: number
+          created_at?: string
+          creator_type: string
+          first_name: string
+          id?: number
+          last_name: string
+        }
+        Update: {
+          citation_id?: number
+          created_at?: string
+          creator_type?: string
+          first_name?: string
+          id?: number
+          last_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "authors_citation_id_fkey"
+            columns: ["citation_id"]
+            isOneToOne: false
+            referencedRelation: "citations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       citations: {
         Row: {
           created_at: string | null
-          data: Json
+          date: string
           id: number
+          issue: string
+          item_type: string
+          journal_abbreviation: string
           owner_id: string
+          pages: string
           project_id: number
+          publication_title: string
+          title: string
+          url: string
+          volume: string
+          zotero_key: string
         }
         Insert: {
           created_at?: string | null
-          data: Json
+          date: string
           id?: number
+          issue: string
+          item_type: string
+          journal_abbreviation: string
           owner_id: string
+          pages: string
           project_id: number
+          publication_title: string
+          title: string
+          url: string
+          volume: string
+          zotero_key: string
         }
         Update: {
           created_at?: string | null
-          data?: Json
+          date?: string
           id?: number
+          issue?: string
+          item_type?: string
+          journal_abbreviation?: string
           owner_id?: string
+          pages?: string
           project_id?: number
+          publication_title?: string
+          title?: string
+          url?: string
+          volume?: string
+          zotero_key?: string
         }
         Relationships: [
           {
@@ -84,6 +146,90 @@ export type Database = {
           },
         ]
       }
+      figure_groups: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          owner_id: string
+          project_id: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          owner_id: string
+          project_id: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          owner_id?: string
+          project_id?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "figure_groups_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "figure_groups_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      figures: {
+        Row: {
+          caption: string
+          created_at: string
+          figure_group_id: number
+          id: number
+          owner_id: string
+          url: string
+        }
+        Insert: {
+          caption: string
+          created_at?: string
+          figure_group_id: number
+          id?: number
+          owner_id: string
+          url: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          figure_group_id?: number
+          id?: number
+          owner_id?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "figures_figure_group_id_fkey"
+            columns: ["figure_group_id"]
+            isOneToOne: false
+            referencedRelation: "figure_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "figures_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       journals: {
         Row: {
           abstract_limit: number
@@ -127,6 +273,9 @@ export type Database = {
           first_name: string | null
           id: string
           last_name: string | null
+          zotero_api_key: string | null
+          zotero_oauth_state: number
+          zotero_userId: string | null
         }
         Insert: {
           created_at?: string
@@ -134,6 +283,9 @@ export type Database = {
           first_name?: string | null
           id: string
           last_name?: string | null
+          zotero_api_key?: string | null
+          zotero_oauth_state?: number
+          zotero_userId?: string | null
         }
         Update: {
           created_at?: string
@@ -141,6 +293,9 @@ export type Database = {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          zotero_api_key?: string | null
+          zotero_oauth_state?: number
+          zotero_userId?: string | null
         }
         Relationships: [
           {

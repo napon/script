@@ -9,6 +9,7 @@ export enum TableName {
   DOCUMENTS = "documents",
   PROFILES = "profiles",
   JOURNALS = "journals",
+  CITATION_AUTHORS = "citation_authors",
 }
 
 export type Database = MergeDeep<
@@ -51,3 +52,7 @@ export type ProfileUpdateDto = UpdateDto<TableName.PROFILES>
 export type Journal = Row<TableName.JOURNALS>
 export type JournalInsertDto = InsertDto<TableName.JOURNALS>
 export type JournalUpdateDto = UpdateDto<TableName.JOURNALS>
+
+export type CitationAuthor = Row<TableName.CITATION_AUTHORS>
+export type AuthorInsertDto = InsertDto<TableName.CITATION_AUTHORS>
+export type AuthorUpdateDto = UpdateDto<TableName.CITATION_AUTHORS>

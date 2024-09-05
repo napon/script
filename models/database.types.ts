@@ -54,5 +54,5 @@ export type JournalInsertDto = InsertDto<TableName.JOURNALS>
 export type JournalUpdateDto = UpdateDto<TableName.JOURNALS>
 
 export type CitationAuthor = Row<TableName.CITATION_AUTHORS>
-export type AuthorInsertDto = InsertDto<TableName.CITATION_AUTHORS>
-export type AuthorUpdateDto = UpdateDto<TableName.CITATION_AUTHORS>
+export type CitationAuthorInsertDto = InsertDto<TableName.CITATION_AUTHORS>
+export type CitationAuthorUpdateDto = UpdateDto<TableName.CITATION_AUTHORS>

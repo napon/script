@@ -123,6 +123,7 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
 
         if (!data[0]) {
           // Citation not imported yet
+          console.log("Inserting Citation")
           this.insertCitationAndAuthor(user.id, citation, projectId)
         }
       }

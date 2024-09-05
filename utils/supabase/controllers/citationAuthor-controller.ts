@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js"
 
-import { AuthorInsertDto, AuthorUpdateDto, Database, TableName } from "@/models"
+import { CitationAuthorInsertDto, Database, TableName } from "@/models"
 
 import { BaseController } from "./base-controller"
 
@@ -19,7 +19,7 @@ export class AuthorController extends BaseController<TableName.CITATION_AUTHORS>
     const createdData: Promise<CitationAuthor>[] = []
 
     authors.forEach((author: ZoteroAuthor) => {
-      const data: AuthorInsertDto = {
+      const data: CitationAuthorInsertDto = {
         citation_id: citation_id,
         creator_type: author.creatorType,
         first_name: author.firstName,

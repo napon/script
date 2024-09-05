@@ -1,12 +1,13 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import { fetchZoteroCitationsAction } from "@/app/zotero/fetchZoteroCitationsAction"
+import { useCitationStore } from "@/store/useCitationStore"
 
 import { Button } from "../ui/button"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable"
 import IntegrateZotero from "./IntegrateZotero"
-import { useCitationStore } from "@/store/useCitationStore"
-import { useEffect } from "react"
 
 export default function CitationDisplay({
   projectId,
@@ -18,6 +19,7 @@ export default function CitationDisplay({
   initialCitations: CitationWithAuthor[]
 }) {
   const { citations, setCitations } = useCitationStore()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setCitations(initialCitations)
@@ -25,8 +27,10 @@ export default function CitationDisplay({
 
   const handleClick = async () => {
     if (!window.location.href.includes("rsc")) {
+      setLoading(true)
       const updatedCitations = await fetchZoteroCitationsAction(projectId)
       setCitations(updatedCitations)
+      setLoading(false)
     }
   }
 
@@ -76,7 +80,7 @@ export default function CitationDisplay({
               })}
             </ul>
           </div>
-          <Button onClick={handleClick} className="mt-auto h-1/6">
+          <Button onClick={handleClick} className="mt-auto h-1/6" disabled={loading}>
             Update Citations
           </Button>
         </div>

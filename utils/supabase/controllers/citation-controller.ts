@@ -111,7 +111,7 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
         return body
       })
 
-      zoteroCitations.forEach(async (citation: ZoteroObject) => {
+      for (const citation of zoteroCitations) {
         const { data, error } = await this.supabase
           .from(this.tableName)
           .select("id(count)")
@@ -123,10 +123,9 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
 
         if (!data[0]) {
           // Citation not imported yet
-          console.log("Creating new Citation")
           this.insertCitationAndAuthor(user.id, citation, projectId)
         }
-      })
+      }
     } else {
       throw new Error("User hasn't integrated Zotero")
     }

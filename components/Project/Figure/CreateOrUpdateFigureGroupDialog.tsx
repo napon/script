@@ -122,6 +122,7 @@ export const CreateOrUpdateFigureGroupDialog: FunctionComponent<
                   <CardContent className="p-4">
                     <div className="flex items-start space-x-4">
                       <Image
+                        unoptimized={true}
                         src={f.url}
                         alt={f.caption}
                         width={150}

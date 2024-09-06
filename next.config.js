@@ -2,13 +2,13 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: process.env.VERCEL_ENV ? [] : ["127.0.0.1"],
+    domains: process.env.VERCEL_ENV ? [process.env.NEXT_PUBLIC_SUPABASE_URL] : ["127.0.0.1"],
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: process.env.SUPABASE_STORAGE_HOSTNAME || "127.0.0.1",
-        port: "",
-        pathname: "/**",
+        protocol: process.env.VERCEL_ENV ? "https" : "http",
+        hostname: process.env.VERCEL_ENV ? process.env.NEXT_PUBLIC_SUPABASE_URL : "127.0.0.1",
+        port: process.env.VERCEL_ENV ? "" : "54321",
+        pathname: "/storage/**",
       },
     ],
   },

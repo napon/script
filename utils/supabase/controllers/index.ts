@@ -1,3 +1,5 @@
 export * from "./document-controller"
+export * from "./figure-controller"
+export * from "./figure-group-controller"
 export * from "./journal-controller"
 export * from "./project-controller"

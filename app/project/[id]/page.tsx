@@ -30,9 +30,9 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
   }
 
   return (
-    <div className="size-full">
+    <div className="flex h-svh w-full flex-col">
       <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
-        <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
+        <div className="flex w-full max-w-4xl grow items-center justify-between p-3 text-sm">
           <AuthButton />
         </div>
       </nav>
@@ -40,11 +40,11 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
         <ResizablePanel defaultSize={25} className="border p-1">
           <LeftBar />
         </ResizablePanel>
-        <ResizablePanel defaultSize={50} className="border p-1">
+        <ResizablePanel defaultSize={50} className="border p-1" style={{ overflowY: "scroll" }}>
           <DocumentColumn projectId={project.id} />
         </ResizablePanel>
         <ResizablePanel defaultSize={25} className="border p-1">
-          <RightBar />
+          <RightBar projectId={project.id} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

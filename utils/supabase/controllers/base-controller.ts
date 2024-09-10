@@ -106,11 +106,12 @@ export class BaseController<K extends TableName, T = Row<K>> {
     return updatedData as T
   }
 
-  protected async delete(id: number | string): Promise<void> {
-    const { error } = await this.supabase.from(this.tableName).delete().eq("id", id)
+  protected async delete(id: number | string): Promise<T> {
+    const { data, error } = await this.supabase.from(this.tableName).delete().eq("id", id).select()
 
     if (error) {
       throw new Error("Error deleting data: " + error.message)
     }
+    return data as T
   }
 }

@@ -15,7 +15,6 @@ type Props = { params: { id: string } }
 const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId } }) => {
   const supabase = createServerClient()
   const apiClient = createSupabaseApiClient(supabase)
-
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -39,7 +38,7 @@ const ProjectPage: FunctionComponent<Props> = async ({ params: { id: projectId }
       </nav>
       <ResizablePanelGroup direction="horizontal" className="border">
         <ResizablePanel defaultSize={25} className="border p-1">
-          <LeftBar projectId={project.id} />
+          <LeftBar />
         </ResizablePanel>
         <ResizablePanel defaultSize={50} className="border p-1" style={{ overflowY: "scroll" }}>
           <DocumentColumn projectId={project.id} />

@@ -9,7 +9,6 @@ export enum TableName {
   DOCUMENTS = "documents",
   PROFILES = "profiles",
   JOURNALS = "journals",
-  CITATION_AUTHORS = "citation_authors",
   FIGURE_GROUPS = "figure_groups",
   FIGURES = "figures",
 }
@@ -54,10 +53,6 @@ export type ProfileUpdateDto = UpdateDto<TableName.PROFILES>
 export type Journal = Row<TableName.JOURNALS>
 export type JournalInsertDto = InsertDto<TableName.JOURNALS>
 export type JournalUpdateDto = UpdateDto<TableName.JOURNALS>
-
-export type CitationAuthor = Row<TableName.CITATION_AUTHORS>
-export type CitationAuthorInsertDto = InsertDto<TableName.CITATION_AUTHORS>
-export type CitationAuthorUpdateDto = UpdateDto<TableName.CITATION_AUTHORS>
 
 export type FigureGroup = Row<TableName.FIGURE_GROUPS>
 export type FigureGroupInsertDto = InsertDto<TableName.FIGURE_GROUPS>

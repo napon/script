@@ -110,10 +110,43 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
       const zoteroCitations: ZoteroObject[] = await response.json().then(body => {
         return body
       })
+      const zoteroKeys = zoteroCitations.map(citation => citation.key)
+
+      // Fetch all citations from database for this user and project
+      const { data: oldCitations, error: oldCitationsError } = await this.supabase
+        .from(TableName.CITATIONS)
+        .select("id, zotero_key")
+        .eq("owner_id", user.id)
+        .eq("project_id", projectId)
+
+      if (oldCitationsError) {
+        throw new Error("Error fetching existing citations: " + oldCitationsError.message)
+      }
+
+      if (oldCitations) {
+        // Identify citations to delete (exist in DB but not in Zotero anymore)
+        const citationsToDelete = oldCitations.filter(
+          oldCitation => !zoteroKeys.includes(oldCitation.zotero_key),
+        )
+
+        if (citationsToDelete.length > 0) {
+          const idsToDelete = citationsToDelete.map(citation => citation.id)
+
+          // Delete citations from the database
+          const { error: deleteError } = await this.supabase
+            .from(TableName.CITATIONS)
+            .delete()
+            .in("id", idsToDelete)
+
+          if (deleteError) {
+            throw new Error("Error deleting citations: " + deleteError.message)
+          }
+        }
+      }
 
       for (const citation of zoteroCitations) {
         const { data, error } = await this.supabase
-          .from(this.tableName)
+          .from(TableName.CITATIONS)
           .select("id(count)")
           .eq("zotero_key", citation.key)
 
@@ -123,7 +156,6 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
 
         if (!data[0]) {
           // Citation not imported yet
-          console.log("Inserting Citation")
           this.insertCitationAndAuthor(user.id, citation, projectId)
         }
       }
@@ -154,7 +186,7 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
     }
 
     const { data: createdCitation, error } = await this.supabase
-      .from(this.tableName)
+      .from(TableName.CITATIONS)
       .insert(citation)
       .select()
       .single()

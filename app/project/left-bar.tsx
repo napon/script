@@ -1,26 +1,24 @@
-import { redirect } from "next/navigation"
-
 import CitationDisplay from "@/components/Citations/CitationDisplay"
 import { ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { createSupabaseApiClient } from "@/utils/supabase/api"
 import { createServerClient } from "@/utils/supabase/server"
 
-export async function LeftBar({ projectId }: { projectId: number }) {
+interface ZoteroObject {
+  key: string
+  version: number
+  library: object
+  links: object
+  meta: object
+  data: object
+}
+
+type Props = { projectId: number }
+
+export async function LeftBar({ projectId }: Props) {
   const supabase = createServerClient()
   const apiClient = createSupabaseApiClient(supabase)
 
-  const profile = await apiClient.profile.getUserProfile()
-
-  if (!profile) {
-    return redirect("/login")
-  }
-
-  const integratedZotero = profile.zotero_oauth_state == 2
-  let citations: CitationWithAuthor[] = []
-
-  if (integratedZotero) {
-    citations = await apiClient.citation.getAllCitationsForCurrentUser()
-  }
+  const citations = await apiClient.citation.getAllCitationsForCurrentUser()
 
   return (
     <ResizablePanelGroup direction="vertical" className="space-y-1">
@@ -30,10 +28,10 @@ export async function LeftBar({ projectId }: { projectId: number }) {
       <ResizablePanel defaultSize={15} className="border p-1">
         <div>Keywords</div>
       </ResizablePanel>
-      <ResizablePanel defaultSize={30} className="flex border p-1">
+      <ResizablePanel defaultSize={30} className="border p-1">
         <CitationDisplay
           projectId={projectId}
-          integratedZotero={integratedZotero}
+          integratedZotero={false}
           initialCitations={citations}
         ></CitationDisplay>
       </ResizablePanel>

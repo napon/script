@@ -4,6 +4,7 @@ import { CitationInsertDto, Database, TableName } from "@/models"
 
 import { BaseController } from "./base-controller"
 import { AuthorController } from "./citationAuthor-controller"
+import { ProfileController } from "./profile-controller"
 
 interface ZoteroObject {
   key: string
@@ -57,10 +58,12 @@ interface ZoteroAuthor {
 
 export class CitationController extends BaseController<TableName.CITATIONS> {
   private authorController: AuthorController
+  private profileController: ProfileController
 
   constructor(supabase: SupabaseClient<Database>) {
     super(supabase, TableName.CITATIONS)
     this.authorController = new AuthorController(supabase)
+    this.profileController = new ProfileController(supabase)
   }
 
   public async getAllCitationsForCurrentUser() {
@@ -95,7 +98,11 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
 
   public async updateCitations(projectId: number) {
     const user = await this.getUser()
-    const profile = await this.getUserProfile(user.id)
+    const profile = await this.profileController.getUserProfile()
+
+    if (!profile) {
+      throw new Error("Error fetching user profile")
+    }
 
     if (profile.zotero_oauth_state == 2 && profile.zotero_api_key && profile.zotero_userId) {
       const response = await fetch(

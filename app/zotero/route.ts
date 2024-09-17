@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(authorize_url)
       } catch (e) {
         console.error("Error occured", e)
-        return e
+        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
       }
     }
     case 1: {

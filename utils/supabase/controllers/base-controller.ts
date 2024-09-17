@@ -26,16 +26,6 @@ export class BaseController<K extends TableName, T = Row<K>> {
     return data.user
   }
 
-  protected async getUserProfile(userId: string | number): Promise<Profile> {
-    const { data, error } = await this.supabase.from("profiles").select().eq("id", userId).single()
-
-    if (error) {
-      throw new Error("Error fetching profile: " + error.message)
-    }
-
-    return data
-  }
-
   protected async get(columnName: KeysOfUnion<T>, value: NonNullable<Json>): Promise<T | null> {
     const { data, error } = await this.supabase
       .from(this.tableName)

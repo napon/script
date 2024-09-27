@@ -6,9 +6,9 @@ import OAuth from "oauth-1.0a"
 import { createSupabaseApiClient } from "@/utils/supabase/api"
 import { createServerClient } from "@/utils/supabase/server"
 
-const clientKey = "3d0d42f24fa628084962"
-const clientSecret = "d91f1665215a99647926"
-const callbackUrl = "http://localhost:3000/zotero"
+const clientKey = process.env.ZOTERO_CLIENT_KEY!
+const clientSecret = process.env.ZOTERO_CLIENT_SECRET!
+const callbackUrl = process.env.ZOTERO_CALLBACK_URL
 
 const request_token_endpoint = "https://www.zotero.org/oauth/request"
 const zotero_authorize_endpoint = "https://www.zotero.org/oauth/authorize"

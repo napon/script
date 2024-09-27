@@ -19,9 +19,14 @@
    ```
    NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
    NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
+   ZOTERO_CLIENT_KEY=[INSERT ZOTERO CLIENT KEY]
+   ZOTERO_CLIENT_SECRET=[INSERT ZOTERO CLIENT SECRET]
+   ZOTERO_CALLBACK_URL=http://localhost:3000/zotero
    ```
 
    Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [the Supabase project's API settings](https://supabase.com/dashboard/project/gwaoosxcrdzjmvevkakm/settings/api)
+
+   `ZOTERO_CLIENT_KEY` and `ZOTERO_CLIENT_SECRET` can be found on the project's Trello board under "Email/Credentials Master List"
 
 1. You can now run the Next.js local development server:
    ```bash

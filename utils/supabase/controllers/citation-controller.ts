@@ -89,9 +89,9 @@ export class CitationController extends BaseController<TableName.CITATIONS> {
 
     const createdData: Promise<Citation>[] = []
 
-    zoteroObjects.forEach(async (zoteroCitation: ZoteroObject) => {
-      this.insertCitationAndAuthor(user.id, zoteroCitation, projectId)
-    })
+    for (const zoteroCitation of zoteroObjects) {
+      await this.insertCitationAndAuthor(user.id, zoteroCitation, projectId)
+    }
 
     return createdData
   }

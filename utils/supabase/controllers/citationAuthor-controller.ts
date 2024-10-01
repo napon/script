@@ -18,7 +18,7 @@ export class AuthorController extends BaseController<TableName.CITATION_AUTHORS>
   public async createAuthor(authors: ZoteroAuthor[], citation_id: number) {
     const createdData: Promise<CitationAuthor>[] = []
 
-    authors.forEach((author: ZoteroAuthor) => {
+    for (const author of authors) {
       const data: CitationAuthorInsertDto = {
         citation_id: citation_id,
         creator_type: author.creatorType,
@@ -26,7 +26,7 @@ export class AuthorController extends BaseController<TableName.CITATION_AUTHORS>
         last_name: author.lastName,
       }
       createdData.push(this.create(data))
-    })
+    }
 
     return createdData
   }

@@ -38,48 +38,31 @@ export default function CitationDisplay({
     <div className="m-0 p-0">
       {integratedZotero ? (
         <div className="flex h-full flex-col overflow-y-scroll">
-          <div className="bg-gray-200">
-            <ResizablePanelGroup direction="horizontal">
-              <ResizablePanel defaultSize={50} className="text-center">
-                <p>Title</p>
-              </ResizablePanel>
-              <ResizablePanel defaultSize={50} className="text-center">
-                <p>Creator</p>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </div>
-          <div className="mb-2 flex flex-1 flex-col">
-            <ul className="menu m-0 flex rounded-box p-0">
+          <table className="table table-pin-rows table-xs mb-1 bg-transparent">
+            <thead>
+              <tr className="border-opacity-50 bg-gray-300 text-black">
+                <th>Title</th>
+                <th>Authors</th>
+              </tr>
+            </thead>
+            <tbody>
               {citations?.map(citation => {
                 const authorsObject: CitationAuthor[] = citation.authors
-                let authorList: string = ""
-                authorsObject.forEach((author: CitationAuthor, index: number) => {
-                  if (index == 0) {
-                    authorList = authorList + author.last_name
-                  } else {
-                    authorList = authorList + " and " + author.last_name
-                  }
-                })
+                const authorList = authorsObject
+                  .map((author, index) =>
+                    index === 0 ? author.last_name : ` and ${author.last_name}`,
+                  )
+                  .join("")
+
                 return (
-                  <div key={citation.id} className="mt-1">
-                    <li>
-                      <a className="m-0 p-0">
-                        <ResizablePanelGroup direction="horizontal">
-                          <ResizablePanel defaultSize={50}>
-                            <p className="truncate pr-1">{citation.title}</p>
-                          </ResizablePanel>
-                          <ResizableHandle></ResizableHandle>
-                          <ResizablePanel defaultSize={50}>
-                            <p className="truncate pl-1">{authorList}</p>
-                          </ResizablePanel>
-                        </ResizablePanelGroup>
-                      </a>
-                    </li>
-                  </div>
+                  <tr key={citation.id} className="border-none odd:bg-white even:bg-gray-100">
+                    <td>{citation.title}</td>
+                    <td>{authorList}</td>
+                  </tr>
                 )
               })}
-            </ul>
-          </div>
+            </tbody>
+          </table>
           <Button onClick={handleClick} className="mt-auto h-1/6" disabled={loading}>
             Update Citations
           </Button>
